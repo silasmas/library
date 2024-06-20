@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('couverture')->nullable();
             $table->string('couverture2')->nullable();
             $table->string('couverture3')->nullable();
+            $table->string('guidevideo')->nullable();
             $table->timestamps();
         });
     }
