@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('livres', function (Blueprint $table) {
             $table->id();
-            $table->json('titre');
+            $table->string('titre');
             $table->string('auteur')->nullable();
             $table->string('isbn')->unique();
             $table->date('datepublication')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('editeur')->nullable();
             $table->string('qte_init')->nullable();
             $table->string('qte_sortie')->nullable();
-            $table->json('description')->nullable();
+            $table->string('description')->nullable();
             $table->string('couverture')->nullable();
             $table->string('couverture2')->nullable();
             $table->string('couverture3')->nullable();

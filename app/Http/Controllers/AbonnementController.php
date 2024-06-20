@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\abonnement;
 use App\Http\Requests\StoreabonnementRequest;
 use App\Http\Requests\UpdateabonnementRequest;
+use App\Models\abonnement;
 
 class AbonnementController extends Controller
 {
@@ -14,6 +14,10 @@ class AbonnementController extends Controller
     public function index()
     {
         return view("site.index");
+    }
+    public function dashboard()
+    {
+        return view("admin.pages.home");
     }
 
     /**

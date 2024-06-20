@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\livre;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class LivreSeeder extends Seeder
 {
@@ -12,6 +13,13 @@ class LivreSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // for ($i = 0; $i < 50; $i++) {
+        //     livre::create([
+        //         'column1' => 'Valeur ' . $i,
+        //         'column2' => 'Autre valeur ' . $i,
+        //         // Générez d'autres valeurs aléatoires pour les colonnes selon vos besoins
+        //     ]);
+        // }
+        livre::factory()->count(50)->create();
     }
 }
