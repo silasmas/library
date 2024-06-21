@@ -13,7 +13,7 @@ class CotegorieLivreSeeder extends Seeder
      */
     public function run(): void
     {
-        cotegorieLivre::factory()->count(40)->create();
+        cotegorieLivre::factory()->count(90)->create();
 
     }
 }

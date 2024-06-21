@@ -29,10 +29,10 @@ class AbonnementController extends Controller
                 ->orWhere("editeur", "LIKE","%", "{$search}","%")
                 ->orWhere("langue", "LIKE","%", "{$search}","%");
         }
-        $livres = $livres->with("categories")->get();
+
+        $livres = $livres->with("categories")->orderBy("titre")->get();
         // dd($livres[54]->categories[0]->nom);
         // $livres = $livres->take(20)->get();
-
         return view("admin.pages.library", compact("livres"));
     }
     public function admin(Request $request)

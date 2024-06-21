@@ -15,14 +15,7 @@
                     <p>
                         All clients need to be verified before you can send email and set a project.
                     </p>
-                    @if (session()->has("message"))
-                    <div class="col-md-6 col-md-offset-3">
-                        <div class="alert alert-{{session()->get('type')}} alert-dismissable">
-                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                            {{ session()->get('message') }}
-                        </div>
-                    </div>
-                    @endif
+
                     <form action="{{route('search') }}" method="post">
                         @csrf
                         <div class="input-group">
@@ -35,6 +28,16 @@
                         </div>
                     </form>
                     <div class="clients-list">
+                        <div class="row">
+                            @if (session()->has("msg"))
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="alert alert-{{session()->get('type')}} alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    {{ session()->get('msg') }}
+                                </div>
+                            </div>
+                            @endif
+                        </div>
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">
                                 <div class="full-height-scroll">
@@ -88,9 +91,14 @@
                                                             {{-- [ INFO ] --}}
                                                         </div>
                                                         <div class="product-desc">
+                                                            @forelse ($l->categories as $c)
+                                                            {{-- <small class="text-muted">{{ $c->nom }}</small> --}}
                                                             <span class="product-price">
-                                                                {{ $l->nbrpage.' pages' }}
+                                                                {{ $c->nom  }}
                                                             </span>
+                                                            @empty
+
+                                                            @endforelse
                                                             <small class="text-muted">{{ $l->auteur }}</small>
                                                             {{-- @forelse ($l->categories as $c)
                                                             @empty

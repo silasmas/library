@@ -39,9 +39,14 @@ class LivreController extends Controller
         ->orWhere("auteur", "LIKE", "%"."$id"."%")
         ->orWhere("isbn", "LIKE", "%"."$id"."%")
         ->orWhere("editeur", "LIKE", "%"."$id"."%")
-        ->orWhere("description", "LIKE", "%"."$id"."%")->get();
+        ->orWhere("description", "LIKE", "%"."$id"."%")->orderBy("titre")->get();
         // dd($livres);
-        return back()->with(['search'=> $livres,'id'=> $request->search]);
+        if($livres->count()>0){
+            return back()->with(['search'=> $livres,'id'=> $request->search,"msg" => $livres->count()." Information(s) trouvé(s)", "type" => "success"]);
+        }else{
+            return back()->with(['search'=> $livres,'id'=> $request->search,"msg" => $livres->count()." Information(s) trouvé(s)", "type" => "danger"]);
+
+        }
     }
     /**
      * Display the specified resource.
