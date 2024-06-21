@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\categorie;
+use App\Models\livre;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class CotegorieLivreFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'livre_id' => livre::factory(),
+            'categorie_id' => categorie::factory(),
         ];
     }
 }

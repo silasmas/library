@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\livre;
+use Illuminate\Http\Request;
 use App\Http\Requests\StorelivreRequest;
 use App\Http\Requests\UpdatelivreRequest;
 
@@ -31,13 +32,26 @@ class LivreController extends Controller
     {
         //
     }
-
+    public function search(Request $request)
+    {
+        $id=$request->search;
+        $livres = livre::where("titre", "LIKE", "%"."$id"."%")
+        ->orWhere("auteur", "LIKE", "%"."$id"."%")
+        ->orWhere("isbn", "LIKE", "%"."$id"."%")
+        ->orWhere("editeur", "LIKE", "%"."$id"."%")
+        ->orWhere("description", "LIKE", "%"."$id"."%")->get();
+        // dd($livres);
+        return back()->with(['search'=> $livres,'id'=> $request->search]);
+    }
     /**
      * Display the specified resource.
      */
-    public function show(livre $livre)
+    public function show($id)
     {
-        //
+
+        $livre = livre::where("id",$id)->orWhere("isbn",$id)->first();
+        return view("admin.pages.detail",compact("livre"));
+
     }
 
     /**

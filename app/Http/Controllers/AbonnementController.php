@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreabonnementRequest;
 use App\Http\Requests\UpdateabonnementRequest;
 use App\Models\abonnement;
+use App\Models\livre;
+use function Laravel\Prompts\search;
+use Illuminate\Http\Request;
 
 class AbonnementController extends Controller
 {
@@ -15,9 +18,36 @@ class AbonnementController extends Controller
     {
         return view("site.index");
     }
-    public function dashboard()
+
+    public function dashboard(Request $request)
     {
-        return view("admin.pages.home");
+        $livres = livre::query();
+        if ($search = $request->search) {
+            $livres->where("titre", "LIKE","%", "{$search}","%")
+                ->orWhere("auteur", "LIKE","%", "{$search}","%")
+                ->orWhere("isbn", "LIKE","%", "{$search}","%")
+                ->orWhere("editeur", "LIKE","%", "{$search}","%")
+                ->orWhere("langue", "LIKE","%", "{$search}","%");
+        }
+        $livres = $livres->with("categories")->get();
+        // dd($livres[54]->categories[0]->nom);
+        // $livres = $livres->take(20)->get();
+
+        return view("admin.pages.library", compact("livres"));
+    }
+    public function admin(Request $request)
+    {
+        $livres = livre::query();
+        if ($search = $request->search) {
+            $livres->where("titre", "LIKE", "{$search}")
+                ->orWhere("auteur", "LIKE", "{$search}")
+                ->orWhere("isbn", "LIKE", "{$search}")
+                ->orWhere("editeur", "LIKE", "{$search}")
+                ->orWhere("langue", "LIKE", "{$search}");
+        }
+        $livres = $livres->take(20)->get();
+
+        return view("admin.pages.home", compact("livres"));
     }
 
     /**

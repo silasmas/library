@@ -16,8 +16,17 @@ class CategorieFactory extends Factory
      */
     public function definition(): array
     {
+        $images = ['Theologie', 'Finace', 'Economie', 'Medecine', 'Mathematique', 'Droit', 'Philosophie', 'Français'];
+        $selectedImages = [];
+        $numberOfImagesToSelect = 5;
+
+        for ($i = 0; $i < $numberOfImagesToSelect; $i++) {
+            $randomIndex = array_rand($images);
+            $selectedImages[] = $images[$randomIndex];
+        }
         return [
-            //
+            'nom' => $selectedImages[1],
+            'description' => $this->faker->paragraph,
         ];
     }
 }

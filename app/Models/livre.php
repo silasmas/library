@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\categorie;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class livre extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function categories(){
+        return $this->belongsToMany(categorie::class,'cotegorie_livres');
+    }
 }

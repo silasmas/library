@@ -6,10 +6,11 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span>
-                            <img alt="image" class="img-circle" src="{{asset('img/default.png')}}" width="100" />
+                            <img alt="image" class="img-circle" src="{{asset('assets/img/default.png')}}" width="100" />
                             </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->prenom.'-'.Auth::user()->name }}</strong>
+                            <span class="clear"> <span class="block m-t-xs">
+                                <strong class="font-bold">{{ Auth::user()->prenom.'-'.Auth::user()->name }}</strong>
                             </span> <span class="text-muted text-xs block">{{ Auth::user()->fonction }} <b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="">Profile</a></li>
@@ -31,13 +32,16 @@
                        PLA
                     </div>
                 </li>
+                <li  class="{{ Route::current()->getName()=="dashboard"?"active":"" }}"> <a href=""><i class="fa fa-envelope-open"></i>
+                    <span class="nav-label">Ma bibliotèque</span></a>
+               </li>
                 <li class="{{ Route::current()->getName()===0 ?"active":"" }}">
                     <a href="#"><i class="fa fa-home"></i> <span class="nav-label">Pages </span>
                     <span class="pull-right label label-primary">Gestion</span></a>
                     <ul class="nav nav-second-level collapse">
                         <li class="{{ Route::current()->getName()=="G_Home"?"active":"" }}">
                             <a href="{{ route('dashboard')}}">
-                                 <span class="nav-label">Teams</span></a>
+                                 <span class="nav-label">Livres</span></a>
                             </li>
                             <li  class="{{ Route::current()->getName()=="G_Publication"?"active":"" }}"> <a href="">
                                  <span class="nav-label">Publications</span></a>
@@ -50,9 +54,7 @@
                     </ul>
                 </li>
 
-                <li  class="{{ Route::current()->getName()=="news_letter"?"active":"" }}"> <a href=""><i class="fa fa-envelope-open"></i>
-                     <span class="nav-label">News letter</span></a>
-                </li>
+
 
                 <li  class="{{ Route::current()->getName()===0?"active":"" }}">
                     <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">Pages</span>
@@ -88,14 +90,14 @@
                     <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                     <form role="search" class="navbar-form-custom" action="search_results.html">
-                        {{-- <div class="form-group">
-                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                        </div> --}}
+                        <div class="form-group">
+                            <input type="text" placeholder="Rechercher un livre par nom ou le nom de l'auteur..." class="form-control" name="top-search" id="top-search">
+                        </div>
                     </form>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Bienvenue dans l'espace Admin PLA.</span>
+                            <span class="m-r-sm text-muted welcome-message">Bienvenue à la library numerique.</span>
                         </li>
 
                         <li>
@@ -113,8 +115,4 @@
 
                 </nav>
         </div>
-        <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
-                <h2>{{Route::current()->getName()}}</h2>
-            </div>
-        </div>
+

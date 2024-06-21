@@ -3,7 +3,7 @@
 
     </div>
     <div>
-        <a href='silasdev.com'> <strong>Copyright</strong> SDev &copy; 2020-2021 </a>
+        <a href='silasdev.com' target="blank"> <strong>Copyright</strong> SDev &copy; 2024 </a>
     </div>
 </div>
 </div>

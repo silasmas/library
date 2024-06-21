@@ -38,7 +38,7 @@
                         <li><a class="page-scroll" href="#features">fonctionnalités</a></li>
                         <li><a class="page-scroll" href="#team">Notre team</a></li>
                         <li><a class="page-scroll" href="#testimonials">Trouver un livre</a></li>
-                        <li><a class="page-scroll" href="#pricing">Pricing</a></li>
+                        <li><a class="page-scroll" href="#pricing">Tarif</a></li>
                         <li><a class="page-scroll" href="#contact">Contact</a></li>
                     </ul>
                 </div>

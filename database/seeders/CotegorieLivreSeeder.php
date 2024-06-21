@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\cotegorieLivre;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,7 @@ class CotegorieLivreSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        cotegorieLivre::factory()->count(40)->create();
+
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\reservation;
 use App\Http\Requests\StorereservationRequest;
 use App\Http\Requests\UpdatereservationRequest;
+use App\Models\livre;
 
 class ReservationController extends Controller
 {
@@ -51,9 +52,19 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatereservationRequest $request, reservation $reservation)
+    public function update($id)
     {
-        //
+        // $livre = livre::find($id);
+        // $categorie->nom != $request->nom ? $categorie->nom = $request->nom : $categorie->nom;
+        // $categorie->description != $request->description ? $categorie->description = $request->description : $categorie->description;
+        // // dd($categorie->categorieil);
+        // $categorie->save();
+        // if ($categorie) {
+        //     return response()->json(['reponse' => true, 'msg' => "Modification réussie"]);
+        // } else {
+        //     return response()->json(['reponse' => false, 'msg' => "Erreur d'enregistrement."]);
+
+        // }
     }
 
     /**

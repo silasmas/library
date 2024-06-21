@@ -10,12 +10,12 @@
     <title>{{ config('app.name') }} | {{ isset($titre)?$titre:"" }}</title>
    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('assets/js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="icon" href="{{ asset('assets/images/PlaLogo.ico') }}" type="image/rdp-icon">
+    {{-- <link rel="icon" href="{{ asset('assets/images/PlaLogo.ico') }}" type="image/rdp-icon"> --}}
 
      <!-- Styles -->
 
@@ -25,7 +25,9 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/js/sweetalert/sweetalert.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/summernote/summernote.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('assets/custom/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+    {{-- @vite(['resources/js/app.js']) --}}
+    {{-- @livewireStyles(); --}}
     @yield("autres_style")
 </head>
 <body class="">
