@@ -76,11 +76,16 @@
                                 <dd>{{ $livre->editeur }}</dd>
                                 <dt>Date de publication :</dt>
                                 <dd>{{ \Carbon\Carbon::parse($livre->datepublication )->isoFormat('LL') }} </dd>
-                                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
                                 <dt>Nombre de page :</dt>
                                 <dd>{{ $livre->nbrpage }}</dd>
                                 <dt>Langue :</dt>
                                 <dd>{{ $livre->langue }}</dd>
+                                <dt>Catégorie :</dt>
+                                @forelse ($livre->categories as $c)
+                                <dd>{{ $c->nom }}</dd>
+                                @empty
+
+                                @endforelse
                                 {{-- <dd>{{$livre->guidevideo}}</dd> --}}
                             </dl>
                             <hr>
@@ -95,29 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content animated bounceInRight">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <i class="fa fa-laptop modal-icon"></i>
-                                    <h4 class="modal-title">Video guider</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>
-                                        <div class="ibox-content">
-                                            <figure>
-                                                <iframe width="500" height="350" src="https://www.youtube.com/embed/zwT5w9n1Mnk?si=PTJ6lpHlt0LcRxN-" frameborder="0" allowfullscreen></iframe>
-                                            </figure>
-                                        </div>
-                                    </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+@include("admin.parties.modale")
                 </div>
                 <div class="ibox-footer">
                     {{-- <span class="pull-right">

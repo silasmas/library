@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,6 +27,12 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+// Récupérer l'utilisateur connecté
+        $user = User::with("role")->find(auth()->id());
+// dd($user->role->pluck('nom')->toArray());
+
+// Ajouter les rôles de l'utilisateur dans la session
+        session(['user_roles' => $user->role->pluck('nom')->toArray()]);
 
         $request->session()->regenerate();
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\livre;
-use Illuminate\Http\Request;
 use App\Http\Requests\StorelivreRequest;
 use App\Http\Requests\UpdatelivreRequest;
+use App\Models\livre;
+use Illuminate\Http\Request;
 
 class LivreController extends Controller
 {
@@ -14,7 +14,9 @@ class LivreController extends Controller
      */
     public function index()
     {
-        //
+        $livres = livre::query();
+        $livres = $livres->with("categories")->orderBy("titre")->get();
+        return view("admin.pages.home", compact("livres"));
     }
 
     /**
@@ -34,17 +36,17 @@ class LivreController extends Controller
     }
     public function search(Request $request)
     {
-        $id=$request->search;
-        $livres = livre::where("titre", "LIKE", "%"."$id"."%")
-        ->orWhere("auteur", "LIKE", "%"."$id"."%")
-        ->orWhere("isbn", "LIKE", "%"."$id"."%")
-        ->orWhere("editeur", "LIKE", "%"."$id"."%")
-        ->orWhere("description", "LIKE", "%"."$id"."%")->orderBy("titre")->get();
+        $id = $request->search;
+        $livres = livre::where("titre", "LIKE", "%" . "$id" . "%")
+            ->orWhere("auteur", "LIKE", "%" . "$id" . "%")
+            ->orWhere("isbn", "LIKE", "%" . "$id" . "%")
+            ->orWhere("editeur", "LIKE", "%" . "$id" . "%")
+            ->orWhere("description", "LIKE", "%" . "$id" . "%")->with("categories")->orderBy("titre")->get();
         // dd($livres);
-        if($livres->count()>0){
-            return back()->with(['search'=> $livres,'id'=> $request->search,"msg" => $livres->count()." Information(s) trouvé(s)", "type" => "success"]);
-        }else{
-            return back()->with(['search'=> $livres,'id'=> $request->search,"msg" => $livres->count()." Information(s) trouvé(s)", "type" => "danger"]);
+        if ($livres->count() > 0) {
+            return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "success"]);
+        } else {
+            return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "danger"]);
 
         }
     }
@@ -54,17 +56,21 @@ class LivreController extends Controller
     public function show($id)
     {
 
-        $livre = livre::where("id",$id)->orWhere("isbn",$id)->first();
-        return view("admin.pages.detail",compact("livre"));
+        $livre = livre::where("id", $id)->orWhere("isbn", $id)->first();
+        return view("admin.pages.detail", compact("livre"));
 
     }
 
     /**
      * Show the form for editing the specified resource.
      */
+    public function gbooks(livre $livre)
+    {
+
+    }
     public function edit(livre $livre)
     {
-        //
+
     }
 
     /**

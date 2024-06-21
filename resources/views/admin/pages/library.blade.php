@@ -13,14 +13,15 @@
                     <h2>Ma bibliothèque</h2>
 
                     <p>
-                        All clients need to be verified before you can send email and set a project.
+                        Ici vous trouverez tout les livres et avez la possibilité de le chercher.
                     </p>
 
                     <form action="{{route('search') }}" method="post">
                         @csrf
                         <div class="input-group">
                             <input type="text" placeholder="Trouvez un livre par son nom, son auteur, son ISBN"
-                                class="input form-control" name="search" value="{{ session()->has('id')?session()->get('id'):""}}">
+                                class="input form-control" name="search"
+                                value="{{ session()->has('id')?session()->get('id'):""}}">
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn btn-primary"> <i class="fa fa-search"></i>
                                     Recherche</button>
@@ -32,7 +33,8 @@
                             @if (session()->has("msg"))
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="alert alert-{{session()->get('type')}} alert-dismissable">
-                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    <button aria-hidden="true" data-dismiss="alert" class="close"
+                                        type="button">×</button>
                                     {{ session()->get('msg') }}
                                 </div>
                             </div>
@@ -63,7 +65,9 @@
                                                             @empty
 
                                                             @endforelse
-                                                            <a href="{{ route('detail',['id'=>$l->isbn]) }}" class="product-name"> {{ Str::limit($l->titre, 10, '...') }}</a>
+                                                            <a href="{{ route('detail',['id'=>$l->isbn]) }}"
+                                                                class="product-name"> {{ Str::limit($l->titre, 10,
+                                                                '...') }}</a>
                                                             <div class="small m-t-xs">
                                                                 {{ Str::limit($l->description, 100, '...') }}
                                                             </div>
@@ -94,7 +98,7 @@
                                                             @forelse ($l->categories as $c)
                                                             {{-- <small class="text-muted">{{ $c->nom }}</small> --}}
                                                             <span class="product-price">
-                                                                {{ $c->nom  }}
+                                                                {{ $c->nom }}
                                                             </span>
                                                             @empty
 
@@ -104,7 +108,9 @@
                                                             @empty
 
                                                             @endforelse --}}
-                                                            <a href="{{ route('detail',['id'=>$l->isbn]) }}" class="product-name"> {{ Str::limit($l->titre, 20, '...') }}</a>
+                                                            <a href="{{ route('detail',['id'=>$l->isbn]) }}"
+                                                                class="product-name"> {{ Str::limit($l->titre, 20,
+                                                                '...') }}</a>
                                                             <div class="small m-t-xs">
                                                                 {{ Str::limit($l->description, 80, '...') }}
                                                             </div>

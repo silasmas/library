@@ -10,7 +10,7 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
 
-    <div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-sm-8">
                 <div class="ibox">
@@ -21,23 +21,27 @@
                         <p>
                             All clients need to be verified before you can send email and set a project.
                         </p>
-                        @if (session()->has("message"))
-                        <div class="col-md-6 col-md-offset-3">
-                            <div class="alert alert-{{session()->get('type')}} alert-dismissable">
-                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                {{ session()->get('message') }}
-                            </div>
-                        </div>
-                        @endif
-                        <form  action="{{route('dashboard') }}" method="get">
+                        <form  action="{{route('search')}}" method="post">
+                            @csrf
                         <div class="input-group">
                                 <input type="text" placeholder="Search client " class="input form-control"
-                                name="search" value="{{ request()->search }}">
+                                name="search" value="{{ session()->has('id')?session()->get('id'):""}}">
                                 <span class="input-group-btn">
-                                        <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Recherche</button>
+                                        <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i> Recherche</button>
                                 </span>
                             </div>
                         </form>
+                        <div class="row">
+                            @if (session()->has("msg"))
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="alert alert-{{session()->get('type')}} alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close"
+                                        type="button">×</button>
+                                    {{ session()->get('msg') }}
+                                </div>
+                            </div>
+                            @endif
+                        </div>
                         <div class="clients-list">
                         <ul class="nav nav-tabs">
                             <span class="pull-right small text-muted">{{ $livres->count()." Livre(s)"}}</span>
@@ -50,6 +54,21 @@
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover">
                                             <tbody>
+                                                @if (session()->has('search'))
+                                                @forelse (session()->get('search') as $l)
+                                                <tr>
+                                                    <td class="client-avatar"><img alt="image" src="{{ asset('assets/img/livre/'.$l->couverture) }}"> </td>
+                                                    <td><a data-toggle="tab" href="#livre-{{ $l->isbn }}" class="client-link">{{ $l->auteur }}</a></td>
+                                                    <td> {{ $l->titre }}</td>
+                                                    <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                                                    <td> {{ $l->isbn }}</td>
+                                                    <td class="client-status"><span class="label label-primary">Active</span></td>
+                                                </tr>
+                                                @empty
+
+                                                @endforelse
+
+                                                @else
                                                 @forelse ($livres as $l)
                                                 <tr>
                                                     <td class="client-avatar"><img alt="image" src="{{ asset('assets/img/livre/'.$l->couverture) }}"> </td>
@@ -62,6 +81,8 @@
                                                 @empty
 
                                                 @endforelse
+
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
@@ -219,12 +240,12 @@
                                     <strong>
                                       Detail du livre
                                     </strong>
-                                    <div class="col-lg-12 text-center">
-                                        <h2>{{$ls->titre}}</h2>
+                                    <div class="text-center col-lg-12">
+                                        <h4>{{$ls->titre}}</h4>
                                     </div>
                                 </div>
                                 <div class="row m-b-lg">
-                                    <div class="col-lg-4 text-center">
+                                    <div class="text-center col-lg-4">
 
                                         <div class="m-b-sm">
                                             <img alt="image" class="img-circlef" src="{{ asset('assets/img/livre/'.$ls->couverture) }}"
@@ -239,8 +260,8 @@
                                         <p>
                                             <h2>{{$ls->auteur}}</h2>
                                         </p>
-                                        <button type="button" class="btn btn-primary btn-sm btn-block"><i
-                                                class="fa fa-envelope"></i> Send Message
+                                        <button data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary btn-sm btn-block"><i
+                                                class="fa fa-youtube-play"></i> Voir la video guide
                                         </button>
                                     </div>
                                 </div>
@@ -249,13 +270,13 @@
 
                                     <strong>Couverture du livre</strong> <br>
                                     <div class="row m-b-lg">
-                                        <div class="col-lg-6 text-center">
+                                        <div class="text-center col-lg-6">
                                             <div class="m-b-sm">
                                                 <img alt="image" class="img-circlef" src="{{ asset('assets/img/livre/'.$ls->couverture2) }}"
                                                      style="width: 100px; height: 100px;" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 text-center">
+                                        <div class="text-center col-lg-6">
                                             <div class="m-b-sm">
                                                 <img alt="image" class="img-circlef" src="{{ asset('assets/img/livre/'.$ls->couverture3) }}"
                                                      style="width: 100px; height: 100px;" >
@@ -301,16 +322,7 @@
                                         {{$ls->description}}
                                     </p>
                                     <hr/>
-                                    <strong>Video de guide</strong>
-                                    <p>
-                                        <div class="ibox-content">
-                                            <figure>
-                                                <iframe width="250" height="200" src="  {{$ls->guidevideo}}" frameborder="0" allowfullscreen></iframe>
-                                            </figure>
-                                        </div>
-                                    </p>
-                                    <hr/>
-                                    <strong>Timeline activity</strong>
+                                    {{-- <strong>Timeline activity</strong>
                                     <div id="vertical-timeline" class="vertical-container dark-timeline">
                                         <div class="vertical-timeline-block">
                                             <div class="vertical-timeline-icon gray-bg">
@@ -372,7 +384,7 @@
                                                 <span class="vertical-date small text-muted"> 4:20 pm - 10.05.2014 </span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 </div>
                             </div>
@@ -683,6 +695,7 @@
                                     </div>
                                 </div>
                             </div> --}}
+                            @include("admin.parties.modale")
                         </div>
                     </div>
                 </div>

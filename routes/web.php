@@ -25,9 +25,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/gbooks', [LivreController::class, 'index'])->name('gbooks');
+
     Route::get('/addRead/{id}', [ReservationController::class, 'update'])->name('addRead');
     Route::get('/addFavorie/{id}', [LivreController::class, 'show'])->name('addFavorie');
     Route::get('/detail/{id}', [LivreController::class, 'show'])->name('detail');
+
     Route::post('/search', [LivreController::class, 'search'])->name('search');
 });
 

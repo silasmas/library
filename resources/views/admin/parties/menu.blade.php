@@ -11,7 +11,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs">
                                 <strong class="font-bold">{{ Auth::user()->prenom.'-'.Auth::user()->name }}</strong>
-                            </span> <span class="text-muted text-xs block">{{ Auth::user()->fonction }} <b class="caret"></b></span> </span> </a>
+                            </span> <span class="block text-xs text-muted">{{ Auth::user()->fonction }} <b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="">Profile</a></li>
                             <li class="divider"></li>
@@ -29,24 +29,33 @@
                         </ul>
                     </div>
                     <div class="logo-element">
-                       PLA
+                       UPC
                     </div>
                 </li>
-                <li  class="{{ Route::current()->getName()=="dashboard"?"active":"" }}"> <a href=""><i class="fa fa-envelope-open"></i>
-                    <span class="nav-label">Ma bibliotèque</span></a>
+                <li  class="{{ Route::current()->getName()=="dashboard"?"active":"" }}"> <a href=""><i class="fa fa-book"></i>
+                    <span class="nav-label">Ma bibliotèque </span></a>
                </li>
-                <li class="{{ Route::current()->getName()===0 ?"active":"" }}">
+                <li  class="{{ Route::current()->getName()=="dashboard"?"":"" }}"> <a href=""><i class="fa fa-heart"></i>
+                    <span class="nav-label">Mes favoris </span></a>
+               </li>
+                <li  class="{{ Route::current()->getName()=="dashboard"?"":"" }}"> <a href=""><i class="fa fa-bookmark"></i>
+                    <span class="nav-label">Mes Emprunts </span></a>
+               </li>
+                <li  class="{{ Route::current()->getName()=="dashboard"?"":"" }}"> <a href=""><i class="fa fa-check-square-o"></i>
+                    <span class="nav-label">Mes reservations</span></a>
+               </li>
+                <li class="{{ Route::current()->getName()===0 ?"active":"" }} {{ Auth::user()->role->pluck('description')->contains("1")?"hidden":"" }}">
                     <a href="#"><i class="fa fa-home"></i> <span class="nav-label">Pages </span>
                     <span class="pull-right label label-primary">Gestion</span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li class="{{ Route::current()->getName()=="G_Home"?"active":"" }}">
-                            <a href="{{ route('dashboard')}}">
+                        <li class="{{ Route::current()->getName()=="gbooks"?"active":"" }}">
+                            <a href="{{ route('gbooks')}}">
                                  <span class="nav-label">Livres</span></a>
                             </li>
                             <li  class="{{ Route::current()->getName()=="G_Publication"?"active":"" }}"> <a href="">
-                                 <span class="nav-label">Publications</span></a>
+                                 <span class="nav-label">Abonnements</span></a>
                             </li>
-                        <li class="{{ Route::current()->getName()=="Slide"?"active":"" }}"><a href="">Slides</a></li>
+                        <li class="{{ Route::current()->getName()=="Slide"?"active":"" }}"><a href="">Abonnés</a></li>
                         <li class="{{ Route::current()->getName()=="G_accueil"?"active":"" }}"><a href="">Accueil</a></li>
                         <li class="{{ Route::current()->getName()=="G_about"?"active":"" }}"><a href="">About</a></li>
                         <li class="{{ Route::current()->getName()=="G_Bureau"?"active":"" }}"><a href="">Bureaux</a></li>
@@ -56,7 +65,7 @@
 
 
 
-                <li  class="{{ Route::current()->getName()===0?"active":"" }}">
+                {{-- <li  class="{{ Route::current()->getName()===0?"active":"" }}">
                     <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">Pages</span>
                     <span class="pull-right label label-primary">Publication</span></a>
                     <ul class="nav nav-second-level collapse">
@@ -78,7 +87,7 @@
                  <li class="{{ Route::current()->getName()=="user"?"active":"" }}">
                 <a href=""><i class="fa fa-users"></i>
                      <span class="nav-label">Gestion user</span></a>
-                </li>
+                </li> --}}
             </ul>
 
         </div>
@@ -99,7 +108,7 @@
                         <li>
                             <span class="m-r-sm text-muted welcome-message">Bienvenue à la library numerique.</span>
                         </li>
-
+                        @include("admin.parties.menuNotif")
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
