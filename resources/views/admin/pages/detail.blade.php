@@ -2,7 +2,7 @@
 
 @section("autres_style")
 <link href="{{ asset('assets/css/slick/slick.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/slick/slick-theme.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/slick/slick-theme.css') }}" rel="stylesheet">
 @endsection
 
 @section("content")
@@ -29,21 +29,24 @@
                     <div class="row">
                         <div class="col-md-5">
                             <div class="product-images">
-                                <div >
-                                    <div class="image-imitation" style="background-image: url('../assets/img/livre/{{ $livre->couverture }}'); background-size: cover;
+                                <div>
+                                    <div class="image-imitation"
+                                        style="background-image: url('../assets/img/livre/{{ $livre->couverture }}'); background-size: cover;
                                                              background-position: center; background-repeat: no-repeat;">
                                         [IMAGE 1]
                                     </div>
                                 </div>
 
-                                <div >
-                                    <div class="image-imitation" style="background-image: url('../assets/img/livre/{{ $livre->couverture2 }}'); background-size: cover;
+                                <div>
+                                    <div class="image-imitation"
+                                        style="background-image: url('../assets/img/livre/{{ $livre->couverture2 }}'); background-size: cover;
                                                              background-position: center; background-repeat: no-repeat;">
                                         [IMAGE 2]
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="image-imitation" style="background-image: url('../assets/img/livre/{{ $livre->couverture3 }}'); background-size: cover;
+                                    <div class="image-imitation"
+                                        style="background-image: url('../assets/img/livre/{{ $livre->couverture3 }}'); background-size: cover;
                                                              background-position: center; background-repeat: no-repeat;">
                                         [IMAGE 3]
                                     </div>
@@ -93,31 +96,53 @@
                             <div>
                                 <div class="btn-group">
                                     @if ($livre->consulter->pluck('statu', 'livre_id')->filter(function ($statu) {
-                                        return $statu == '1';
-                                    })->isNotEmpty())                                        
-                                    <button class="btn btn-success btn-sm" onclick="event.preventDefault(),removeFavoris({{$livre->id }},'GET', '../removePret','Remettre le prêt','Vous êtes sur le point de mettre fin au prêt du livre')"><i class="fa fa-bookmark"></i>Emprunter pour lire</button>
+                                    return $statu == '1';
+                                    })->isNotEmpty())
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="event.preventDefault(),removeFavoris({{$livre->id }},'GET', '../removePret','Remettre le prêt','Vous êtes sur le point de mettre fin au prêt du livre')"><i
+                                            class="fa fa-bookmark"></i>Emprunter pour lire</button>
                                     @else
-                                    <button class="btn btn-white btn-sm" onclick="event.preventDefault(),addFavoris({{ $livre->id }},'GET', '../addPret')"><i class="fa fa-bookmark"></i>Emprunter pour lire</button>
-                                        
+                                    <button class="btn btn-white btn-sm"
+                                        onclick="event.preventDefault(),addFavoris({{ $livre->id }},'GET', '../addPret')"><i
+                                            class="fa fa-bookmark"></i>Emprunter pour lire</button>
+
                                     @endif
-                                        @if ($livre->favories->pluck('livre_id')->filter(function ($livre_id) use ($livre){
-                                        return $livre_id == $livre->id;
-                                    })->isNotEmpty()) 
-                                    <button class="btn btn-danger btn-sm" onclick="event.preventDefault();removeFavoris({{ $livre->id }},'GET', '../removeFavoris','Retirer des favoris','Etes-vous sûr de retirer ce livre de vos favoris?')"><i class="fa fa-heart"></i> Ajouter aux favoris
+                                    @if ($livre->favories->pluck('livre_id')->filter(function ($livre_id) use ($livre){
+                                    return $livre_id == $livre->id;
+                                    })->isNotEmpty())
+                                    <button class="btn btn-danger btn-sm"
+                                        onclick="event.preventDefault();removeFavoris({{ $livre->id }},'GET', '../removeFavoris','Retirer des favoris','Etes-vous sûr de retirer ce livre de vos favoris?')"><i
+                                            class="fa fa-heart"></i> Ajouter aux favoris
                                         @else
-                                        <button class="btn btn-with btn-sm" onclick="event.preventDefault(),addFavoris('{{ $livre->id}}','GET', '../addFavorie','')"><i class="fa fa-heart"></i> Ajouter aux favoris
-                                            
+                                        <button class="btn btn-with btn-sm"
+                                            onclick="event.preventDefault(),addFavoris('{{ $livre->id}}','GET', '../addFavorie','')"><i
+                                                class="fa fa-heart"></i> Ajouter aux favoris
+
+                                            @endif
+
+                                    </button>
+                                    @if ($livre->reserver->pluck('statu')->filter(function ($statu) {
+                                        return $statu == "1";
+                                        })->isNotEmpty())
+                                        <button class="btn btn-info btn-sm"
+                                            onclick="event.preventDefault(),removeFavoris({{$livre->id }},'GET', '../removeReservation','Remettre le prêt','Vous êtes sur le point de mettre fin au prêt du livre')"><i
+                                                class="fa fa-check-square-o"></i>Reserver pour lire
+                                        </button>
+                                        @else
+                                        <button class="btn btn-white btn-sm"
+                                            onclick="event.preventDefault(),addFavoris({{ $livre->id }},'GET', '../addReservation')"><i
+                                                class="fa fa-check-square-o"></i>Reserver pour lire
+                                        </button>
+
                                         @endif
-                                    
-                                    </button>
-                                    <button class="btn btn-info btn-sm" onclick="event.preventDefault(),addALl('{{ $livre->id}}','GET', '../addFavorie','')"><i class="fa fa-check-square-o"></i>Reserver pour lire
-                                    </button>
-                                    <button class="btn btn-white btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-youtube-play"></i> Emplacement du livre </button>
-                                </div> 
+                                        <button class="btn btn-white btn-sm" data-toggle="modal"
+                                            data-target="#myModal"><i class="fa fa-youtube-play"></i> Emplacement du
+                                            livre </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-@include("admin.parties.modale")
+                    @include("admin.parties.modale")
                 </div>
                 <div class="ibox-footer">
                     {{-- <span class="pull-right">

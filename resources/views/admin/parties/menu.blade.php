@@ -65,10 +65,10 @@
                                  <span class="nav-label">Abonnements</span></a>
                             </li>
                         <li class="{{ Route::current()->getName()=="Slide"?"active":"" }}"><a href="">Abonnés</a></li>
-                        <li class="{{ Route::current()->getName()=="G_accueil"?"active":"" }}"><a href="">Accueil</a></li>
-                        <li class="{{ Route::current()->getName()=="G_about"?"active":"" }}"><a href="">About</a></li>
-                        <li class="{{ Route::current()->getName()=="G_Bureau"?"active":"" }}"><a href="">Bureaux</a></li>
-                        <li class="{{ Route::current()->getName()=="G_expertise"?"active":"" }}"><a href="">Expertises</a></li>
+                        <li class="{{ Route::current()->getName()=="G_accueil"?"active":"" }}"><a href="">Emplacements</a></li>
+                        <li class="{{ Route::current()->getName()=="G_about"?"active":"" }}"><a href="">Utilisateurs</a></li>
+                        {{-- <li class="{{ Route::current()->getName()=="G_Bureau"?"active":"" }}"><a href="">Bureaux</a></li>
+                        <li class="{{ Route::current()->getName()=="G_expertise"?"active":"" }}"><a href="">Expertises</a></li> --}}
                     </ul>
                 </li>
 
