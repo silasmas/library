@@ -14,9 +14,8 @@ class LivreController extends Controller
      */
     public function index()
     {
-        $livres = livre::query();
-        $livres = $livres->with("categories")->orderBy("titre")->get();
-        return view("admin.pages.home", compact("livres"));
+        
+        return view("admin.pages.home");
     }
 
     /**
@@ -36,19 +35,25 @@ class LivreController extends Controller
     }
     public function search(Request $request)
     {
+        // dd($request->search);
         $id = $request->search;
         $livres = livre::where("titre", "LIKE", "%" . "$id" . "%")
             ->orWhere("auteur", "LIKE", "%" . "$id" . "%")
             ->orWhere("isbn", "LIKE", "%" . "$id" . "%")
             ->orWhere("editeur", "LIKE", "%" . "$id" . "%")
             ->orWhere("description", "LIKE", "%" . "$id" . "%")->with("categories")->orderBy("titre")->get();
-        // dd($livres);
         if ($livres->count() > 0) {
-            return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "success"]);
+            return response()->json(['reponse' => true, 'msg' => "Merci d'être venu remettre le livre",'data' => $livres]);
         } else {
-            return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "danger"]);
+            return response()->json(['reponse' => false, 'msg' => "Erreur pret."]);
 
         }
+        // if ($livres->count() > 0) {
+        //     return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "success"]);
+        // } else {
+        //     return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "danger"]);
+
+        // }
     }
     /**
      * Display the specified resource.
@@ -56,10 +61,11 @@ class LivreController extends Controller
     public function show($id)
     {
 
-        $livre = livre::where("id", $id)->orWhere("isbn", $id)->first();
+        $livre = livre::with("favories", "consulter", "reserver")->where("id", $id)->orWhere("isbn", $id)->first();
         return view("admin.pages.detail", compact("livre"));
 
     }
+    
 
     /**
      * Show the form for editing the specified resource.

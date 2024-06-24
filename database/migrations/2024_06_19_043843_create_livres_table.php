@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\emplacement;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,11 +23,13 @@ return new class extends Migration
             $table->string('editeur')->nullable();
             $table->string('qte_init')->nullable();
             $table->string('qte_sortie')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('couverture')->nullable();
             $table->string('couverture2')->nullable();
             $table->string('couverture3')->nullable();
             $table->string('guidevideo')->nullable();
+            $table->integer('active')->default('1');
+            $table->foreignIdFor(emplacement::class)->nullable();
             $table->timestamps();
         });
     }

@@ -21,34 +21,24 @@ class AbonnementController extends Controller
 
     public function dashboard(Request $request)
     {
-        $livres = livre::query();
-        if ($search = $request->search) {
-            $livres->where("titre", "LIKE","%", "{$search}","%")
-                ->orWhere("auteur", "LIKE","%", "{$search}","%")
-                ->orWhere("isbn", "LIKE","%", "{$search}","%")
-                ->orWhere("editeur", "LIKE","%", "{$search}","%")
-                ->orWhere("langue", "LIKE","%", "{$search}","%");
-        }
-
-        $livres = $livres->with("categories")->orderBy("titre")->get();
         // dd($livres[54]->categories[0]->nom);
         // $livres = $livres->take(20)->get();
-        return view("admin.pages.library", compact("livres"));
-    }
-    public function admin(Request $request)
-    {
-        $livres = livre::query();
-        if ($search = $request->search) {
-            $livres->where("titre", "LIKE", "{$search}")
-                ->orWhere("auteur", "LIKE", "{$search}")
-                ->orWhere("isbn", "LIKE", "{$search}")
-                ->orWhere("editeur", "LIKE", "{$search}")
-                ->orWhere("langue", "LIKE", "{$search}");
-        }
-        $livres = $livres->take(20)->get();
+        return view("admin.pages.library");
+     }
+    // public function admin(Request $request)
+    // {
+    //     $livres = livre::query();
+    //     if ($search = $request->search) {
+    //         $livres->where("titre", "LIKE", "{$search}")
+    //             ->orWhere("auteur", "LIKE", "{$search}")
+    //             ->orWhere("isbn", "LIKE", "{$search}")
+    //             ->orWhere("editeur", "LIKE", "{$search}")
+    //             ->orWhere("langue", "LIKE", "{$search}");
+    //     }
+    //     $livres = $livres->take(20)->get();
 
-        return view("admin.pages.home", compact("livres"));
-    }
+    //     return view("admin.pages.home", compact("livres"));
+    // }
 
     /**
      * Show the form for creating a new resource.

@@ -53,6 +53,7 @@ class LivreFactory extends Factory
             'couverture2' => $selectedImages[1],
             'couverture3' => $selectedImages[2],
             'guidevideo' => "https://www.youtube.com/embed/zwT5w9n1Mnk?si=PTJ6lpHlt0LcRxN-",
+            'emplacement_id' =>0,
         ];
     }
 }

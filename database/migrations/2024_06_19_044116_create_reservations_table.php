@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(livre::class);
-            $table->json('statu')->nullable();
-            $table->date('dateretour')->nullable();
-            $table->string('fraisretard')->nullable();
+            $table->string('statu')->nullable();
+            $table->date('dateDebutReserver')->nullable();
+            $table->date('dateFinReserver')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

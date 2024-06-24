@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('avantages', function (Blueprint $table) {
             $table->id();
-            $table->json('type');
-            $table->json('prix');
-            $table->json('monaie');
-            $table->json('delai');
-            $table->json('av1')->nullable();
-            $table->json('av2')->nullable();
-            $table->json('av4')->nullable();
-            $table->json('av5')->nullable();
-            $table->json('av6')->nullable();
-            $table->json('av7')->nullable();
-            $table->json('av8')->nullable();
-            $table->json('description')->nullable();
+            $table->string('type');
+            $table->string('prix');
+            $table->string('monaie');
+            $table->string('delai');
+            $table->string('av1')->nullable();
+            $table->string('av2')->nullable();
+            $table->string('av4')->nullable();
+            $table->string('av5')->nullable();
+            $table->string('av6')->nullable();
+            $table->string('av7')->nullable();
+            $table->string('av8')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

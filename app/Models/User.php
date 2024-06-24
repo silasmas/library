@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\role;
+use App\Models\consulter;
+use App\Models\reservation;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,5 +48,14 @@ class User extends Authenticatable
     ];
     public function role(){
         return $this->belongsToMany(role::class,'role_users');
+    }
+    public function reserver(){
+        return $this->hasMany(reservation::class);
+    }
+    public function favories(){
+        return $this->Hasmany(favori::class);
+    }
+    public function consulter(){
+        return $this->hasMany(consulter::class);
     }
 }

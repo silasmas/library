@@ -16,7 +16,8 @@
                         Ici vous trouverez tout les livres et avez la possibilité de le chercher.
                     </p>
 
-                    <form action="{{route('search') }}" method="post">
+                    {{-- <form id='formsearch' action="{{route('search') }}" method="post" onsubmit="event.preventDefault();recherche('search','POST','formsearch')"> --}}
+                    <form id='formsearch' action="{{route('search') }}" method="post">
                         @csrf
                         <div class="input-group">
                             <input type="text" placeholder="Trouvez un livre par son nom, son auteur, son ISBN"
@@ -44,13 +45,12 @@
                             <div id="tab-1" class="tab-pane active">
                                 <div class="full-height-scroll">
                                     <div class="table-responsive">
-                                        <div class="row">
+                                        <div class="row" id="rowdata">
                                             @if (session()->has('search'))
                                             @forelse (session()->get('search') as $l)
                                             <div class="col-md-3">
                                                 <div class="ibox">
                                                     <div class="ibox-content product-box">
-
                                                         <div class="product-imitation"
                                                             style="background-image: url('assets/img/livre/{{ $l->couverture }}'); background-size: cover;
                                                              background-position: center; background-repeat: no-repeat;">
@@ -85,16 +85,17 @@
 
                                             @endforelse
                                             @else
-                                            @forelse ($livres as $l)
-                                            <div class="col-md-3">
+                                            @forelse ($livres as $l) 
+                                            <div class="col-md-4">
                                                 <div class="ibox">
                                                     <div class="ibox-content product-box">
-
                                                         <div class="product-imitation"
                                                             style="background-image: url('assets/img/livre/{{ $l->couverture }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                                                            {{-- [ INFO ] --}}
+                                                          
                                                         </div>
+                                                     
                                                         <div class="product-desc">
+                                                            
                                                             @forelse ($l->categories as $c)
                                                             {{-- <small class="text-muted">{{ $c->nom }}</small> --}}
                                                             <span class="product-price">
@@ -104,10 +105,6 @@
 
                                                             @endforelse
                                                             <small class="text-muted">{{ $l->auteur }}</small>
-                                                            {{-- @forelse ($l->categories as $c)
-                                                            @empty
-
-                                                            @endforelse --}}
                                                             <a href="{{ route('detail',['id'=>$l->isbn]) }}"
                                                                 class="product-name"> {{ Str::limit($l->titre, 20,
                                                                 '...') }}</a>
@@ -115,11 +112,12 @@
                                                                 {{ Str::limit($l->description, 80, '...') }}
                                                             </div>
                                                             <div class="m-t text-righ">
-
                                                                 <a href="{{ route('detail',['id'=>$l->isbn]) }}"
                                                                     class="btn btn-xs btn-outline btn-primary">Detail <i
                                                                         class="fa fa-long-arrow-right"></i> </a>
-                                                            </div>
+                                                            </div>  
+                                                            <hr>                                                         
+                                                            @include("admin.pages.parties.favorie")
                                                         </div>
                                                     </div>
                                                 </div>

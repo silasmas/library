@@ -32,17 +32,26 @@
                        UPC
                     </div>
                 </li>
-                <li  class="{{ Route::current()->getName()=="dashboard"?"active":"" }}"> <a href=""><i class="fa fa-book"></i>
+                <li  class="{{ Route::current()->getName()=="dashboard"?"active":"" }}">
+                     <a href="{{ route('dashboard') }}"><i class="fa fa-book"></i>
                     <span class="nav-label">Ma bibliotèque </span></a>
                </li>
-                <li  class="{{ Route::current()->getName()=="dashboard"?"":"" }}"> <a href=""><i class="fa fa-heart"></i>
-                    <span class="nav-label">Mes favoris </span></a>
+                <li  class="{{Route::current()->getName()=="meFavoris"?"active":"" }}"> 
+                    <a href="{{ route('meFavoris') }}"><i class="fa fa-heart"></i>
+                    <span class="nav-label">Mes favoris </span>
+                <span class="label label-danger pull-right">{{ $userFavorie->favories->count() }}</span></a>
                </li>
-                <li  class="{{ Route::current()->getName()=="dashboard"?"":"" }}"> <a href=""><i class="fa fa-bookmark"></i>
-                    <span class="nav-label">Mes Emprunts </span></a>
+                <li  class="{{ Route::current()->getName()=="mesPrets"?"active":"" }}"> 
+                    <a href="{{ route('mesPrets') }}"><i class="fa fa-bookmark"></i>
+                    <span class="nav-label">Mes Emprunts </span>
+                <span class="label label-success pull-right">{{ $userFavorie->consulter->pluck('statu')->filter(function ($statu) {
+                    return $statu === '1';
+                })->count() }}</span></a>
                </li>
-                <li  class="{{ Route::current()->getName()=="dashboard"?"":"" }}"> <a href=""><i class="fa fa-check-square-o"></i>
-                    <span class="nav-label">Mes reservations</span></a>
+                <li  class="{{ Route::current()->getName()=="mesReservations"?"active":"" }}"> 
+                    <a href="{{ route('mesReservations') }}"><i class="fa fa-check-square-o"></i>
+                    <span class="nav-label">Mes reservations</span>
+                <span class="label label-info pull-right">{{ $userFavorie->reserver->count() }}</span></a>
                </li>
                 <li class="{{ Route::current()->getName()===0 ?"active":"" }} {{ Auth::user()->role->pluck('description')->contains("1")?"hidden":"" }}">
                     <a href="#"><i class="fa fa-home"></i> <span class="nav-label">Pages </span>
