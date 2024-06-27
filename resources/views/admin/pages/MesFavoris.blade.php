@@ -13,9 +13,8 @@
                 <div class="ibox-content">
                     <div class="table-responsive">
                         <div class="row">
-
                             @forelse (Auth::user()->favories->load('livre') as $l)
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <td>
                                     <div class="ibox">
                                         <div class="ibox-content product-box">
@@ -49,7 +48,8 @@
                                         </div>
                                     </div>
                                 </td>
-                            </div>
+                            </div> --}}
+                            @include("admin.pages.parties.favorie")
                             @empty
 
                             @endforelse

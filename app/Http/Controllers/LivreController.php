@@ -42,18 +42,18 @@ class LivreController extends Controller
             ->orWhere("isbn", "LIKE", "%" . "$id" . "%")
             ->orWhere("editeur", "LIKE", "%" . "$id" . "%")
             ->orWhere("description", "LIKE", "%" . "$id" . "%")->with("categories")->orderBy("titre")->get();
-        if ($livres->count() > 0) {
-            return response()->json(['reponse' => true, 'msg' => "Merci d'être venu remettre le livre",'data' => $livres]);
-        } else {
-            return response()->json(['reponse' => false, 'msg' => "Erreur pret."]);
-
-        }
         // if ($livres->count() > 0) {
-        //     return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "success"]);
+        //     return response()->json(['reponse' => true, 'msg' => "Merci d'être venu remettre le livre",'data' => $livres]);
         // } else {
-        //     return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "danger"]);
+        //     return response()->json(['reponse' => false, 'msg' => "Erreur pret."]);
 
         // }
+        if ($livres->count() > 0) {
+            return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "success"]);
+        } else {
+            return back()->with(['search' => $livres, 'id' => $request->search, "msg" => $livres->count() . " Information(s) trouvé(s)", "type" => "danger"]);
+
+        }
     }
     /**
      * Display the specified resource.

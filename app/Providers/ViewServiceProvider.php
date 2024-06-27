@@ -37,7 +37,7 @@ class ViewServiceProvider extends ServiceProvider
             $UserLivrePreter = $userFavorie->consulter->load("livre")->filter(function ($consultation) {
                 return $consultation->statu == '1';
             });
-            //  dd($UserLivrePreter);
+            //  dd(Auth::user()->favories);
             // dd($userFavorie->consulter[0]->load("livre"));
             // Cloner les résultats de la première requête
             $view->with('userFavorie', $userFavorie);
